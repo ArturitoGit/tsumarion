@@ -1,0 +1,22 @@
+#control_row {
+    margin-bottom : 40px ;
+}
+
+.btn {
+    font-size : 15px ;
+    padding : 7px ;
+    padding-right : 10px ;
+    margin-right : 5px ;
+}
+
+#control_row form{
+    display : inline-block ;
+}
+
+#control_row .col-md-4 {
+    padding-left : 5% ;
+}
+
+#input_titre {
+    width : 300px ;
+}

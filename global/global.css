@@ -1,0 +1,8 @@
+body, html {
+    height: 100% ;
+    font-family : 'ABeezee' ;
+    scroll-behavior: smooth ;
+}
+* {
+    box-sizing : border-box ;
+}

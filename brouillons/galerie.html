@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="galerie/galerie.css">
+    <link rel="stylesheet" href="galerie/modal.css">
+    <script src="galerie/modal.js"></script>
+
+    <title>Galerie</title>
+
+</head>
+<body>
+
+<!-- Le fond de la page -->
+<div class="bg" id="bg"></div> 
+
+<!-- Le titre du site -->
+<h1 id="titre">Atelier MAGE</h1>
+
+<!-- Le menu du site -->
+<div class="menu">
+    <a href="Accueil">Contact</a>
+    <a href="boutique.html">Boutique</a>
+    <div class="dropdown">
+        <a href="galerie.html" id="active" class="btn">Galerie</a>
+        <div class="liens">
+            <a href="contact.asp">Exploration</a>
+            <a href="news.asp">Vaisselle</a>
+            <a href="default.asp">Couteaux</a>
+            <a href="contact.asp">La maison</a>
+        </div>
+    </div>
+    <a href="accueil.html">Accueil</a>
+</div>
+
+<!-- Le contenu de la page -->
+<div class="container">
+
+    <!-- Le titre de la collection -->
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-9 autres-collections"> 
+            <h2><b>Exploration</b></h2>
+        </div>
+    </div> 
+
+    <!-- Les images -->
+    <div class="row">
+
+        <!-- La colonne des liens vers les autres collections -->
+        <div class="col-md-3 autres-collections"> 
+            <ul>
+                <li><a href="contact.asp">Exploration</a></li>
+                <li><a href="news.asp">Vaisselle</a></li>
+                <li><a href="default.asp">Couteaux</a></li>
+                <li><a href="contact.asp">La maison</a></li>
+            </ul>
+        </div>
+
+        <!-- Une colonne d'images -->
+        <div class="col-md-3">
+            <div class="vignette"><img src="Images/I2.jpg" onclick="openModal();currentSlide(1)"></div>
+            <div class="vignette"><img src="Images/I4.jpg" onclick="openModal();currentSlide(4)"></div>
+            <div class="vignette"><img src="Images/I6.jpg" onclick="openModal();currentSlide(7)"></div>
+        </div>
+
+        <!-- Une colonne d'images -->
+        <div class="col-md-3">
+            <div class="vignette"><img src="Images/I5.jpg" onclick="openModal();currentSlide(2)"></div>
+            <div class="vignette"><img src="Images/I3.jpg" onclick="openModal();currentSlide(5)"></div>
+            <div class="vignette"><img src="Images/I7.jpg" onclick="openModal();currentSlide(8)"></div>
+        </div>
+
+        <!-- Une colonne d'images -->
+        <div class="col-md-3">
+            <div class="vignette"><img src="Images/I4.jpg" onclick="openModal();currentSlide(3)"></div>
+            <div class="vignette"><img src="Images/I2.jpg" onclick="openModal();currentSlide(6)"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Les images MODAL -->
+<div class="modal" id="modal">
+
+    <!-- Le bouton pour fermer la page -->
+    <span class="close cursor" onclick="closeModal()">&times;</span>
+
+    <div class="modal-content">
+
+        <!-- Les images elles-meme -->
+        <div class="mySlides"><img src="Images/I2.jpg"></div>
+        <div class="mySlides"><img src="Images/I5.jpg"></div>
+        <div class="mySlides"><img src="Images/I8.png"></div>
+        <div class="mySlides"><img src="Images/I4.jpg"></div>
+        <div class="mySlides"><img src="Images/I3.jpg"></div>
+        <div class="mySlides"><img src="Images/I2.jpg"></div>
+        <div class="mySlides"><img src="Images/I6.jpg"></div>
+        <div class="mySlides"><img src="Images/I7.jpg"></div>
+
+        <!-- Next/previous controls -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+/* The Text Color */
+h2 , 
+.autres-collections a {
+    color : rgb(51, 51, 51) ;
+}
+/* The selected Text Color */
+.autres-collections a:hover, 
+#active-collection {
+    /**/
+    color : rgb(150, 150, 150) ;
+}
+
+/* The page */
+.container {
+    width : 98% ;
+    position : absolute ;
+    left : 0 ;
+    margin-top : 140px ;
+} 
+
+h1 {
+    position : absolute ;
+    font-size : 27px ;
+    width : 40% ;
+    padding-left : 50px ;
+    margin-top : 25px ;
+    font-family : 'ABeeZee' ;
+    color : rgb(51, 51, 51) ;
+    top : 0 ;
+}
+
+/* The page Title */
+h2 {
+    font-size : 35px ;
+    letter-spacing: 1px ;
+}
+
+/* The horizontal distance between images */
+.col-md-3 {
+    padding-left : 12px ;
+    padding-right : 12px ;
+}
+
+/* The images */
+ .vignette {
+     border-radius : 0px ;
+     margin-bottom : 25px ;
+     /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+ }
+
+ /* The other-collections links */
+.autres-collections {
+    padding : 0 ;
+    padding-bottom : 50px ;
+}
+.autres-collections ul , .autres-collections h3 {
+    width : 100% ;
+    padding : 0 ;
+}
+.autres-collections ul {
+   margin-left : 15% ;
+}
+.autres-collections li {
+   padding-bottom : 10px ;
+}
+.autres-collections a {
+   font-size : 17px ;
+}
+.autres-collections a:hover {
+   text-decoration: none ;
+}
+
+.vignette img {
+    width : 100% ;
+    cursor: pointer;
+}
