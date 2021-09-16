@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le : mer. 15 sep. 2021 à 12:06
+-- Généré le : jeu. 16 sep. 2021 à 17:32
 -- Version du serveur : 8.0.26
 -- Version de PHP : 7.4.20
 
@@ -33,6 +33,13 @@ CREATE TABLE `admin` (
   `pwd` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Déchargement des données de la table `admin`
+--
+
+INSERT INTO `admin` (`id`, `pseudo`, `pwd`) VALUES
+(1, 'arturito', 'arturito');
+
 -- --------------------------------------------------------
 
 --
@@ -43,6 +50,14 @@ CREATE TABLE `collections` (
   `id` int NOT NULL,
   `nom` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `collections`
+--
+
+INSERT INTO `collections` (`id`, `nom`) VALUES
+(9, 'Test nouveau nom'),
+(21, 'Ma collection');
 
 -- --------------------------------------------------------
 
@@ -86,13 +101,13 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT pour la table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `collections`
 --
 ALTER TABLE `collections`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

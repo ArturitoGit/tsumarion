@@ -1,6 +1,8 @@
 <?php
 
-    $bdd = new PDO('mysql:host=localhost;dbname=tsumarion;charset=utf8', 'root', '');
+    // BDD
+    include('bdd.php') ;
+
     // Recuperation de tous les noms de collections
     $all_collections = $bdd->query("SELECT * FROM collections") ;
 
@@ -33,7 +35,7 @@
         <a href="galerie.php" <?=isActive("galerie",$active)?> class="btn">Galerie</a>
         <div class="liens">
             <?php // Boucle sur toutes les collections
-            while ($col = $all_collections->fetch()) { ?>
+            while ($col = $all_collections->fetch_assoc()) { ?>
                 <a href="galerie.php?collection=<?=$col['id']?>"><?=$col['nom']?></a>
             <?php } ?>
         </div>

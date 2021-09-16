@@ -26,7 +26,8 @@
             $path);
         // Ajout de l'image dans la bdd
         $req = $bdd->prepare("INSERT INTO images VALUES (NULL, ? , ?)") ;
-        $req->execute(array($id_collection,$path)) ;
+        $req->bind_param('is',$id_collection,$path) ;
+        $req->execute() ;
     }
 
     /**
@@ -43,13 +44,15 @@
         // Ajout de la collection dans la bdd
         $sql = "INSERT INTO collections VALUES (NULL , ?)" ;
         $req = $bdd->prepare($sql) ;
-        $req->execute(array($nom_collection)) ;
+        $req->bind_param('s',$nom_collection) ;
+        $req->execute() ;
         // Recherche de l'id ajoute, pour le renvoyer en resultat de la fonction
         $req = $bdd->prepare('SELECT id FROM collections WHERE nom=?') ;
-        $req->execute(array($nom_collection)) ;
-        $homonymes = $req->fetchAll() ;
-        print_r($homonymes) ;
-        $len_homonymes = $req->rowCount() ;
+        $req->bind_param('s',$nom_collection) ;
+        $req->execute() ;
+        $result = $req->get_result() ;
+        $homonymes = $result->fetch_all(MYSQLI_ASSOC) ;
+        $len_homonymes = $result->num_rows ;
         return ($homonymes[$len_homonymes - 1]['id']) ;
     }
 
@@ -66,7 +69,8 @@
         }
         // Changement du nom dans la bdd
         $req = $bdd->prepare("UPDATE collections SET nom=? WHERE id=?") ;
-        $req->execute(array($new_name,$id)) ;
+        $req->bind_param('si',$new_name,$id) ;
+        $req->execute() ;
     }
 
     /**
@@ -81,10 +85,12 @@
         }
         // Suppression de toutes les images de la collection
         $req = $bdd->prepare("DELETE FROM images WHERE collection=?") ;
-        $req->execute(array($id)) ;
+        $req->bind_param('i',$id) ;
+        $req->execute() ;
         // Suppression de la collection dans sa bdd
         $req = $bdd->prepare("DELETE FROM collections WHERE id=?") ;
-        $req->execute(array($id)) ;
+        $req->bind_param('i',$id) ;
+        $req->execute() ;
     }
 
     /**
@@ -98,22 +104,25 @@
             return ;
         }
         // Suppression du fichier dans le systeme
-        $response = $bdd->query("SELECT path FROM images WHERE id=".$id)->fetch();
+        $response = $bdd->query("SELECT path FROM images WHERE id=".$id)->fetch_assoc();
         if (!$response) {return ;}
         if (file_exists($response['path'])) {
             unlink($response['path']) ;
         }
         // Suppression du fichier dans la base de donnee
         $req = $bdd->prepare("DELETE FROM images WHERE id=?") ;
-        $req->execute(array($id)) ;
+        $req->bind_param('i',$id) ;
+        $req->execute() ;
     }
 
     function deleteLastImage($bdd, $id_collection) {
         // Recherche de toutes les images de la collection
         $req = $bdd->prepare("SELECT * FROM images WHERE collection=?") ;
-        $req->execute(array($id_collection)) ;
-        $images = $req->fetchAll();
-        $len_images = $req->rowCount() ;
+        $req->bind_param('i',$id_collection) ;
+        $req->execute() ;
+        $result = $request->get_result() ;
+        $images = $result->fetch_all(MYSQLI_ASSOC);
+        $len_images = $result->num_rows ;
         // Si la collection ne possède pas d'image
         if ($len_images <= 0) {
             return ;
@@ -130,8 +139,7 @@
 // ---------------------------------------------------------------------------------------------------- */
 
     /* Connexion a la base de donnee */
-    $bdd = new PDO('mysql:host=localhost;dbname=tsumarion;charset=utf8', 'root', '');
-    if($bdd == NULL) {return;}
+    include('global/bdd.php') ;
 
     /* Recuperation du parametre action */
     $action = NULL ;

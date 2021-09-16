@@ -2,7 +2,8 @@
 
     session_start() ; // Ouverture de la session
 
-    $bdd = new PDO('mysql:host=localhost;dbname=tsumarion;charset=utf8', 'root', '');
+    // BDD
+    include('global/bdd.php') ;
 
     $failed_login = false ;
 
@@ -14,7 +15,8 @@
         $hashe = md5($salt.$pseudo.$salt.$pwd.$salt) ;
         // Verification dans la base de données
         $req = $bdd->prepare("SELECT * FROM admin WHERE pseudo=? AND pwd=?") ;
-        $req->execute(array($pseudo,$hashe)) ;
+        $req->bind_param('ss',$pseudo,$pwd) ;
+        $req->execute() ;
         $response = $req->fetch() ;
         if ($response) {
             // Authentification reussie

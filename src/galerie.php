@@ -1,7 +1,10 @@
 <?php
 
+    // BDD
+    include('global/bdd.php') ;
+
     function getDefaultId($bdd) {
-        $response = $bdd->query("SELECT id FROM collections")->fetch() ;
+        $response = $bdd->query("SELECT id FROM collections")->fetch_assoc() ;
         if (!$response) {
             // S'il n'y a pas de collections dans la liste -> redirection
             header('Location: accuil.html');
@@ -12,8 +15,6 @@
         return $id_col ;
     }
 
-    $bdd = new PDO('mysql:host=localhost;dbname=tsumarion;charset=utf8', 'root', '');
-
     // Recuperation de l'identifiant de la collection a afficher
     if (isset($_GET['collection']) AND ctype_digit($_GET['collection'])) {
         $id_col = $_GET['collection'] ;
@@ -23,9 +24,10 @@
 
     // Le nom de la collection
     $req = $bdd->prepare("SELECT nom FROM collections WHERE id=?");
-    $req->execute(array($id_col)) ;
-    if ($response = $req->fetch()) {
-        $nom_col = $response['nom'] ;
+    $req->bind_param('i',$id_col) ;
+    $req->execute() ;
+    if ($response = $req->get_result()) {
+        $nom_col = $response->fetch_array(MYSQLI_ASSOC)['nom'] ;
     } else {
         // Si l'index donne ne correspond a aucune collection
         $nom_col = $bdd->query("SELECT nom FROM collections WHERE id=".getDefaultId($bdd))->fetch()['nom'] ;
@@ -34,18 +36,21 @@
 
     // Les images qui la composent
     $sql = "SELECT path FROM images WHERE collection=?" ;
-    $req = $bdd->prepare($sql,array(PDO::ATTR_CURSOR, PDO::CURSOR_SCROLL)) ; 
-    $req->execute(array($id_col)) ;
-    $images = $req->fetchAll() ;
-    $len_images = $req->rowCount() ;
+    $req = $bdd->prepare($sql) ; 
+    $req->bind_param('i',$id_col) ;
+    $req->execute() ;
+    $result = $req->get_result() ;
+    $images = $result->fetch_all(MYSQLI_ASSOC) ;
+    $len_images = $result->num_rows ;
 
     // Les autres collections   
     $sql = "SELECT nom,id FROM collections WHERE id<>?" ;
-    $req = $bdd->prepare($sql) ; 
-    $req->execute(array($id_col));
-    $collections = $req->fetchAll() ;
-    $len_collections = $req->rowCount() ;
-    
+    $req = $bdd->prepare($sql) ;
+    $req->bind_param('i',$id_col) ;
+    $req->execute();
+    $result = $req->get_result() ;
+    $collections = $result->fetch_all(MYSQLI_ASSOC) ;
+    $len_collections = $result->num_rows ;    
 ?>
 
 <!DOCTYPE html>
