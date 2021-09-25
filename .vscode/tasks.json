@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compose up",
+            "type": "shell",
+            "command": "docker-compose up",
+            "options": {
+                "cwd": "${workspaceFolder}/env"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Compose down",
+            "type": "shell",
+            "command": "docker-compose down",
+            "options": {
+                "cwd": "${workspaceFolder}/env"
+            }
+        },
+        {
+            "label": "Compose stop",
+            "type": "shell",
+            "command": "docker-compose stop",
+            "options": {
+                "cwd": "${workspaceFolder}/env"
+            }
+        },
+        {
+            "label": "Compose start",
+            "type": "shell",
+            "command": "docker-compose start",
+            "options": {
+                "cwd": "${workspaceFolder}/env"
+            }
+        },
+        {
+            "label": "Save db",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "exec", "-it", "db", "/bin/sh",
+                "-c","mysqldump --routines -u root -proot tsumarion -r docker-entrypoint-initdb.d/tsumarion.sql"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/env"
+            }
+        }
+    ]
+}

@@ -1,7 +1,7 @@
 <?php
 
     // The path of the directory where images are saved
-    $path_images = 'Images/' ;
+    $path_images = 'Images/galerie/' ;
     // The default name of the new collections
     $new_col_default_name = "Nouvelle_collection" ;
 
@@ -26,7 +26,7 @@
             $path);
         // Ajout de l'image dans la bdd
         $req = $bdd->prepare("INSERT INTO images VALUES (NULL, ? , ?)") ;
-        $req->bind_param('is',$id_collection,$path) ;
+        $req->bind_param('ss',$id_collection,$path) ;
         $req->execute() ;
     }
 
@@ -120,7 +120,7 @@
         $req = $bdd->prepare("SELECT * FROM images WHERE collection=?") ;
         $req->bind_param('i',$id_collection) ;
         $req->execute() ;
-        $result = $request->get_result() ;
+        $result = $req->get_result() ;
         $images = $result->fetch_all(MYSQLI_ASSOC);
         $len_images = $result->num_rows ;
         // Si la collection ne possède pas d'image
@@ -131,6 +131,8 @@
         $id_image = $images[$len_images-1]['id'] ;
         // Suppression de l'image
         $bdd->query("DELETE FROM images WHERE id=".$id_image) ;
+        // Suppression de l'image du repertoire
+        // ?
     }
     
 
