@@ -56,8 +56,9 @@
     $req = $bdd->prepare($sql) ;
     $req->bind_param('i',$id_col) ;
     $req->execute();
-    $collections = $req->get_result()->fetch_all(MYSQLI_ASSOC) ;
-    $len_collections = $req->num_rows ;        
+    $result = $req->get_result() ;
+    $collections = $result->fetch_all(MYSQLI_ASSOC) ;
+    $len_collections = $result->num_rows ;        
 ?>
 
 <!DOCTYPE html>
@@ -102,7 +103,7 @@
         <div class="col-md-4" id="admin_image">
             <!-- Ajouter une image a la collection -->
             <form action="admin.php" method="POST" enctype="multipart/form-data" id="form_add_image">
-                <input type="file"   name="file_image" style="display:none ;" id="add_image_link" accept=".jpeg,.jpg,.png">
+                <input type="file" name="file_images[]" style="display:none ;" id="add_image_link" accept=".jpeg,.jpg,.png" multiple/>
                 <input type="button" value="Ajouter image" onClick="onAddImagePressed();" class="btn btn-success btn-lg">
                 <input type="hidden" name="action" value="add_image"/> 
                 <input type="hidden" name="id_collection" value="<?=$id_col?>"/> 

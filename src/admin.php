@@ -14,15 +14,15 @@
      * $id_collection   : the id of the collection
      * $file_image      : the image to be added
      */
-    function registerImage ($bdd , $id_collection , $file_image , $path_images) {
+    function registerImage ($bdd , $id_collection , $image_name, $image_tmp_name , $path_images) {
         // Cas de mauvais parametres
-        if ($bdd == NULL OR $id_collection == NULL or $file_image == NULL) {
+        if ($bdd == NULL OR $id_collection == NULL) {
             return ;
         }
-        $path = $path_images . basename($file_image['name']) ;
+        $path = $path_images . basename($image_name) ;
         // Importation de l'image dans le systeme
         move_uploaded_file(
-            $file_image['tmp_name'],
+            $image_tmp_name,
             $path);
         // Ajout de l'image dans la bdd
         $req = $bdd->prepare("INSERT INTO images VALUES (NULL, ? , ?)") ;
@@ -173,12 +173,21 @@
         exit() ;
     }
 
-    /* Requete d'ajout d'image */
-    elseif ($action == 'add_image' AND isset($_FILES['file_image']) AND $_FILES['file_image']['error'] == 0
-            AND isset($_POST['id_collection'])) {
-
-        // Enregistrer l'image dans la collection
-        registerImage($bdd,$_POST['id_collection'],$_FILES['file_image'],$path_images) ;
+    elseif ($action == 'add_image' AND isset($_FILES['file_images']) AND isset($_POST['id_collection'])) {
+        // Trouver le nombre d'images
+        $countfiles = count($_FILES['file_images']['name']);
+        // Parcourir toutes les images
+        for ($i=0 ; $i<$countfiles ; $i++) {
+            // Si l'image a ete telechargee sans erreur
+            if ($_FILES['file_images']['error'][$i] == 0) {
+                // Alors enregistrer cette image
+                registerImage($bdd,
+                    $_POST['id_collection'],
+                    $_FILES['file_images']['name'][$i],
+                    $_FILES['file_images']['tmp_name'][$i],
+                    $path_images) ;
+            }
+        }
         // Redirection vers la page admin de cette collection
         header ('Location: galerie_admin.php?collection='.$_POST['id_collection']) ;
         exit() ;
