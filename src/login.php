@@ -2,6 +2,8 @@
 
     session_start() ; // Ouverture de la session
 
+    // Params
+    include('global/params.php') ;
     // BDD
     include('global/bdd.php') ;
 
@@ -28,9 +30,23 @@
         }
     }
 
-    // Redirection vers galerie_admin en cas de connexion
+    // Cible par default
+    $cible = 0 ;
+    // Recuperation de la cible
+    if (isset($_GET['cible'])) {
+        $param_cible = intval($_GET['cible']) ;
+        // Si param_cible correspond a l'identifiant d'une des pages de params.php
+        if ($param_cible < $nb_pages AND $param_cible >= 0) {
+            $cible = $param_cible ;
+        }
+    } else {
+        echo "pas de cible" ;
+        exit() ;
+    }
+
+    // Redirection vers la cible en cas de connexion
     if (isset($_SESSION['connected']) AND $_SESSION['connected'] == true) {
-        header('Location: galerie_admin.php') ;
+        header('Location: '. $pages[$cible]) ;
         exit() ;
     }
 
@@ -52,7 +68,7 @@
         <p>Vous essayez de rentrer dans la partie sécurisée du site web.<br/> Vous êtes probablement
         Marion ou Arthur, mais je vais devoir vous demander de vous identifer :</p>
 
-        <form method="POST" action ="login.php" id="form">
+        <form method="POST" action ="login.php?cible=<?=$cible?>" id="form">
             <div class="form-group">
                 <label for="pseudo">Pseudo :</label>
                 <input type="text" class="form-control" name="pseudo" id="pseudo">

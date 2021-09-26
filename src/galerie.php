@@ -1,5 +1,9 @@
 <?php
 
+    // Authentification
+    include("global/params.php") ;
+    authentificate(1) ;
+
     // BDD
     include('global/bdd.php') ;
 
@@ -43,10 +47,9 @@
     $images = $result->fetch_all(MYSQLI_ASSOC) ;
     $len_images = $result->num_rows ;
 
-    // Les autres collections   
-    $sql = "SELECT nom,id FROM collections WHERE id<>?" ;
+    // Toutes les collections   
+    $sql = "SELECT nom,id FROM collections" ;
     $req = $bdd->prepare($sql) ;
-    $req->bind_param('i',$id_col) ;
     $req->execute();
     $result = $req->get_result() ;
     $collections = $result->fetch_all(MYSQLI_ASSOC) ;
@@ -91,8 +94,12 @@
         <div class="col-md-3 autres-collections"> 
             <ul>
                 <?php // Boucle sur toutes les collections
-                for ($i = 0 ; $i < $len_collections ; $i++) { ?>
-                    <li><a href="galerie.php?collection=<?=$collections[$i]['id']?>"><?=$collections[$i]['nom']?></a></li>
+                for ($i = 0 ; $i < $len_collections ; $i++) { 
+                    // Permet d'ajouter l'id "active" sur le lien de la collection courante
+                    $id_active = ($collections[$i]['id'] == $id_col) ? "id='active'" : "" ;?>
+                    <li>
+                        <a href="galerie.php?collection=<?=$collections[$i]['id']?>"<?=$id_active?>><?=$collections[$i]['nom']?></a>
+                    </li>
                 <?php } ?>
             </ul>
         </div>
@@ -102,11 +109,14 @@
         for ($colonne = 0 ; $colonne < 3 ; $colonne ++) { ?>
             <div class="col-md-3">
             <?php // Dans une colonne on affiche une image sur 3 en partant d'un offset $colonne
-            $i = $colonne ; while ($i < $len_images) { ?>
-                <!-- Une colonne d'images -->
-                <div class="vignette"><img src="<?=$images[$i]['path']?>" onclick="openModal();currentSlide(<?=$i+1?>)"></div>
-                <?php $i += 3 ; 
-            } ?>
+                $i = $colonne ; 
+                while ($i < $len_images) { ?>
+                    <!-- Une colonne d'images -->
+                    <div class="vignette">
+                        <img src="<?=$images[$i]['path']?>"  onclick="openModal();currentSlide(<?=$i+1?>)">
+                    </div>
+                    <?php $i += 3 ; 
+                } ?>
             </div>
         <?php } ?>
 </div>

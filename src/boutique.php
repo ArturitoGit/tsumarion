@@ -1,3 +1,9 @@
+<?php 
+    // Authentification
+    include("global/params.php") ;
+    authentificate(2) ;
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

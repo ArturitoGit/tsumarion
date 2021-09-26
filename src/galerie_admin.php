@@ -1,15 +1,11 @@
 <?php
 
-    session_start() ;
+    // Authentification
+    include("global/params.php") ;
+    authentificate(4) ;
 
     // BDD
     include('global/bdd.php') ;
-
-    // Redirection vers la page de login si non connectes
-    if (!isset($_SESSION['connected']) OR !$_SESSION['connected']) {
-        header('Location: login.php') ;
-        exit() ;
-    }
 
     function getDefaultId($bdd) {
         $response = $bdd->query("SELECT id FROM collections")->fetch_assoc() ;
