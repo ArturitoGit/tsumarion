@@ -39,7 +39,7 @@
     }
 
     // Les images qui la composent
-    $sql = "SELECT path FROM images WHERE collection=?" ;
+    $sql = "SELECT path,id FROM images WHERE collection=?" ;
     $req = $bdd->prepare($sql) ; 
     $req->bind_param('i',$id_col) ;
     $req->execute() ;
@@ -153,9 +153,20 @@
         for ($colonne = 0 ; $colonne < 3 ; $colonne ++) { ?>
             <div class="col-md-3">
             <?php // Dans une colonne on affiche une image sur 3 en partant d'un offset $colonne
-            $i = $colonne ; while ($i < $len_images) { ?>
+            $i = $colonne ; 
+            while ($i < $len_images) { 
+                $id_image = $images[$i]['id'] ;
+                $path_image = $images[$i]['path'] ;?>
                 <!-- Une colonne d'images -->
-                <div class="vignette"><img src="<?=$images[$i]['path']?>" onclick="openModal();currentSlide(<?=$i+1?>)"></div>
+                <div class="vignette">
+                    <img src="<?=$path_image?>" onclick="openModal();currentSlide(<?=$i+1?>)">
+                    <form method="post" action="admin.php" id="delete_image_post_<?=$id_image?>">
+                        <input type="hidden" name="action" value="delete_image">
+                        <input type="hidden" name="id_collection" value="<?=$id_col?>">
+                        <input type="hidden" name="id_image" value="<?=$id_image?>">
+                    </form>
+                    <button class="del_image_btn" onClick="onDeleteImagePressed(<?=$id_image?>);">X</button>
+                </div>
                 <?php $i += 3 ; 
             } ?>
             </div>

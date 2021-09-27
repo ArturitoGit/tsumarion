@@ -8,6 +8,10 @@ function onDeleteColPressed () {
     }
 }
 
+function onDeleteImagePressed ($id_image) {
+    document.forms["delete_image_post_" + $id_image].submit() ;
+}
+
 // Override l'affichage classique d'un input file
 function onAddImagePressed () {
     let bouton = document.getElementById('add_image_link') ;

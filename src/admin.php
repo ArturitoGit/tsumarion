@@ -104,12 +104,6 @@
             return ;
         }
         // Suppression du fichier dans le systeme
-        $response = $bdd->query("SELECT path FROM images WHERE id=".$id)->fetch_assoc();
-        if (!$response) {return ;}
-        if (file_exists($response['path'])) {
-            unlink($response['path']) ;
-        }
-        // Suppression du fichier dans la base de donnee
         $req = $bdd->prepare("DELETE FROM images WHERE id=?") ;
         $req->bind_param('i',$id) ;
         $req->execute() ;
@@ -158,6 +152,14 @@
     }
 
     /* Requete de suppression d'une image */
+    elseif ($action == 'delete_image' AND isset($_POST['id_image']) AND isset($_POST['id_collection'])) {
+        deleteImage($bdd,$_POST['id_image']) ;
+        // Redirection vers la page admin de cette collection
+        header ('Location: galerie_admin.php?collection='.$_POST['id_collection']) ;
+        exit() ;
+    }
+
+    /* Requete de suppression de la derniere image */
     elseif ($action == 'delete_image' AND isset($_POST['id_collection'])) {
         deleteLastImage($bdd,$_POST['id_collection']) ;
         // Redirection vers la page admin de cette collection
