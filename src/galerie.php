@@ -1,59 +1,19 @@
 <?php
-
     // Authentification
     include("global/params.php") ;
     authentificate(1) ;
 
-    // BDD
-    include('global/bdd.php') ;
-
-    function getDefaultId($bdd) {
-        $response = $bdd->query("SELECT id FROM collections")->fetch_assoc() ;
-        if (!$response) {
-            // S'il n'y a pas de collections dans la liste -> redirection
-            header('Location: accuil.html');
-            exit();
-        }
-        // Sinon retrouner le premier identifiant de la liste
-        $id_col = $response['id'] ;
-        return $id_col ;
+    // Recuperer les parametres de la requete GET
+    $id_col = null ;
+    if (isset($_GET['collection'])) {
+        $id_col = intval($_GET['collection']) ;
     }
 
-    // Recuperation de l'identifiant de la collection a afficher
-    if (isset($_GET['collection']) AND ctype_digit($_GET['collection'])) {
-        $id_col = $_GET['collection'] ;
-    } else {
-        $id_col = getDefaultId($bdd) ;
-    }
-
-    // Le nom de la collection
-    $req = $bdd->prepare("SELECT nom FROM collections WHERE id=?");
-    $req->bind_param('i',$id_col) ;
-    $req->execute() ;
-    if ($response = $req->get_result()) {
-        $nom_col = $response->fetch_array(MYSQLI_ASSOC)['nom'] ;
-    } else {
-        // Si l'index donne ne correspond a aucune collection
-        $nom_col = $bdd->query("SELECT nom FROM collections WHERE id=".getDefaultId($bdd))->fetch()['nom'] ;
-        $id_col = getDefaultId($bdd) ;
-    }
-
-    // Les images qui la composent
-    $sql = "SELECT path FROM images WHERE collection=?" ;
-    $req = $bdd->prepare($sql) ; 
-    $req->bind_param('i',$id_col) ;
-    $req->execute() ;
-    $result = $req->get_result() ;
-    $images = $result->fetch_all(MYSQLI_ASSOC) ;
-    $len_images = $result->num_rows ;
-
-    // Toutes les collections   
-    $sql = "SELECT nom,id FROM collections" ;
-    $req = $bdd->prepare($sql) ;
-    $req->execute();
-    $result = $req->get_result() ;
-    $collections = $result->fetch_all(MYSQLI_ASSOC) ;
-    $len_collections = $result->num_rows ;    
+    // Appel de la fonctionnalite InitGallery
+    require_once "services/Services.php" ;
+    require_once "features/InitGallery.php" ;
+    $request = new InitGalleryRequest($id_col) ;
+    $result = (new InitGalleryHandler($Services))->Handle($request) ;
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +43,7 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-9 autres-collections"> 
-            <h2><b><?=$nom_col?></b></h2>
+            <h2><b><?=$result->collection->nom?></b></h2>
         </div>
     </div> 
 
@@ -94,11 +54,12 @@
         <div class="col-md-3 autres-collections"> 
             <ul>
                 <?php // Boucle sur toutes les collections
-                for ($i = 0 ; $i < $len_collections ; $i++) { 
+                for ($i = 0 ; $i < count($result->all_collections) ; $i++) {
+                    $i_collection = $result->all_collections[$i] ;
                     // Permet d'ajouter l'id "active" sur le lien de la collection courante
-                    $id_active = ($collections[$i]['id'] == $id_col) ? "id='active'" : "" ;?>
+                    $id_active = ($i_collection->id == $result->collection->id) ? "id='active'" : "" ;?>
                     <li>
-                        <a href="galerie.php?collection=<?=$collections[$i]['id']?>"<?=$id_active?>><?=$collections[$i]['nom']?></a>
+                        <a href="galerie.php?collection=<?=$i_collection->id?>"<?=$id_active?>><?=$i_collection->nom?></a>
                     </li>
                 <?php } ?>
             </ul>
@@ -110,10 +71,10 @@
             <div class="col-md-3">
             <?php // Dans une colonne on affiche une image sur 3 en partant d'un offset $colonne
                 $i = $colonne ; 
-                while ($i < $len_images) { ?>
+                while ($i < count($result->images)) { ?>
                     <!-- Une colonne d'images -->
                     <div class="vignette">
-                        <img src="<?=$images[$i]['path']?>"  onclick="openModal();currentSlide(<?=$i+1?>)">
+                        <img src="<?=$result->images[$i]->path?>"  onclick="openModal();currentSlide(<?=$i+1?>)">
                     </div>
                     <?php $i += 3 ; 
                 } ?>
@@ -129,8 +90,8 @@
 
     <div class="modal-content">
         <!-- Les images elles-meme -->
-        <?php for ($i = 0 ; $i < $len_images ; $i++) { ?>
-            <div class="mySlides"><img src="<?=$images[$i]['path']?>"></div>
+        <?php for ($i = 0 ; $i < count($result->images) ; $i++) { ?>
+            <div class="mySlides"><img src="<?=$result->images[$i]->path?>"></div>
         <?php } ?>
 
         <!-- Next/previous controls -->

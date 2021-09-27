@@ -60,7 +60,7 @@
         }
 
         public function getCollections() {
-            $sql = "SELECT * FROM collections" ;
+            $sql = "SELECT * FROM collections ORDER BY id ASC" ;
             $result = $this->_bdd->query($sql) ;
             return $this->resultToArray($result) ;
         }
@@ -96,7 +96,7 @@
         }
 
         public function getImages($id_col) {
-            $sql = "SELECT * FROM images WHERE collection=?" ;
+            $sql = "SELECT * FROM images WHERE collection=? ORDER BY id DESC" ;
             $req = $this->_bdd->prepare($sql) ;
             $req->bind_param('i',$id_col) ;
             $req->execute() ;

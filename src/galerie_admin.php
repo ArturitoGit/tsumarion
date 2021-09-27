@@ -1,60 +1,19 @@
 <?php
-
     // Authentification
     include("global/params.php") ;
     authentificate(4) ;
 
-    // BDD
-    include('global/bdd.php') ;
-
-    function getDefaultId($bdd) {
-        $response = $bdd->query("SELECT id FROM collections")->fetch_assoc() ;
-        if (!$response) {
-            // S'il n'y a pas de collections dans la liste -> redirection
-            header('Location: accueil.php');
-            exit();
-        }
-        // Sinon retrouner le premier identifiant de la liste
-        $id_col = $response['id'] ;
-        return $id_col ;
+    // Recuperer les parametres de la requete GET
+    $id_col = null ;
+    if (isset($_GET['collection'])) {
+        $id_col = intval($_GET['collection']) ;
     }
 
-    // Recuperation de l'identifiant de la collection a afficher
-    if (isset($_GET['collection']) AND ctype_digit($_GET['collection'])) {
-        $id_col = $_GET['collection'] ;
-    } else {
-        $id_col = getDefaultId($bdd) ;
-    }
-
-    // Le nom de la collection
-    $req = $bdd->prepare("SELECT nom FROM collections WHERE id=?");
-    $req->bind_param('i',$id_col) ;
-    $req->execute() ;
-    if ($response = $req->get_result()) {
-        $nom_col = $response->fetch_array(MYSQLI_ASSOC)['nom'] ;
-    } else {
-        // Si l'index donne ne correspond a aucune collection
-        $nom_col = $bdd->query("SELECT nom FROM collections WHERE id=".getDefaultId($bdd))->fetch()['nom'] ;
-        $id_col = getDefaultId($bdd) ;
-    }
-
-    // Les images qui la composent
-    $sql = "SELECT path,id FROM images WHERE collection=?" ;
-    $req = $bdd->prepare($sql) ; 
-    $req->bind_param('i',$id_col) ;
-    $req->execute() ;
-    $result = $req->get_result() ;
-    $images = $result->fetch_all(MYSQLI_ASSOC) ;
-    $len_images = $result->num_rows ;
-
-    // Les autres collections   
-    $sql = "SELECT nom,id FROM collections WHERE id<>?" ;
-    $req = $bdd->prepare($sql) ;
-    $req->bind_param('i',$id_col) ;
-    $req->execute();
-    $result = $req->get_result() ;
-    $collections = $result->fetch_all(MYSQLI_ASSOC) ;
-    $len_collections = $result->num_rows ;        
+    // Appel de la fonctionnalite InitGallery
+    require_once "services/Services.php" ;
+    require_once "features/InitGallery.php" ;
+    $request = new InitGalleryRequest($id_col) ;
+    $result = (new InitGalleryHandler($Services))->Handle($request) ;        
 ?>
 
 <!DOCTYPE html>
@@ -91,7 +50,7 @@
                 <div class="form-group">
                     <input type="text"   class="form-control" placeholder="Nouveau titre" id="input_titre" name="nom_collection">
                     <input type="hidden" name="action" value="change_name"/>
-                    <input type="hidden" name="id_collection" value="<?=$id_col?>"/> 
+                    <input type="hidden" name="id_collection" value="<?=$result->collection->id?>"/> 
                 </div>
                 <button type="submit" class="btn btn-light">OK</button>
             </form>
@@ -102,13 +61,13 @@
                 <input type="file" name="file_images[]" style="display:none ;" id="add_image_link" accept=".jpeg,.jpg,.png" multiple/>
                 <input type="button" value="Ajouter image" onClick="onAddImagePressed();" class="btn btn-success btn-lg">
                 <input type="hidden" name="action" value="add_image"/> 
-                <input type="hidden" name="id_collection" value="<?=$id_col?>"/> 
+                <input type="hidden" name="id_collection" value="<?=$result->collection->id?>"/> 
             </form>
         <!-- Supprimer une image de la collection -->
             <form action="admin.php" method="POST">
                 <input type="submit" value="Supprimer image" class="btn btn-danger btn-lg">
                 <input type="hidden" name="action" value="delete_image"> 
-                <input type="hidden" name="id_collection" value="<?=$id_col?>"> 
+                <input type="hidden" name="id_collection" value="<?=$result->collection->id?>"> 
             </form>
         </div>
         <div class="col-md-4">
@@ -121,7 +80,7 @@
             <form action="admin.php" method="POST" id="delete_col_form">
                 <input type="submit" style="display:none;">
                 <input type="button" value="Supprimer collection" onClick="onDeleteColPressed();" class="btn btn-danger btn-lg">
-                <input type="hidden" name="id_collection" value="<?=$id_col?>"> 
+                <input type="hidden" name="id_collection" value="<?=$result->collection->id?>"> 
                 <input type="hidden" name="action" value="delete_collection"> 
             </form>
         </div>
@@ -131,7 +90,7 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-9 autres-collections"> 
-            <h2><b><?=$nom_col?></b></h2>
+            <h2><b><?=$result->collection->nom?></b></h2>
         </div>
     </div> 
 
@@ -142,8 +101,13 @@
         <div class="col-md-3 autres-collections"> 
             <ul>
                 <?php // Boucle sur toutes les collections
-                for ($i = 0 ; $i < $len_collections ; $i++) { ?>
-                    <li><a href="galerie_admin.php?collection=<?=$collections[$i]['id']?>"><?=$collections[$i]['nom']?></a></li>
+                for ($i = 0 ; $i < count($result->all_collections) ; $i++) {
+                    $i_collection = $result->all_collections[$i] ;
+                    // Permet d'ajouter l'id "active" sur le lien de la collection courante
+                    $id_active = ($i_collection->id == $result->collection->id) ? "id='active'" : "" ;?>
+                    <li>
+                        <a href="galerie_admin.php?collection=<?=$i_collection->id?>"<?=$id_active?>><?=$i_collection->nom?></a>
+                    </li>
                 <?php } ?>
             </ul>
         </div>
@@ -153,23 +117,21 @@
         for ($colonne = 0 ; $colonne < 3 ; $colonne ++) { ?>
             <div class="col-md-3">
             <?php // Dans une colonne on affiche une image sur 3 en partant d'un offset $colonne
-            $i = $colonne ; 
-            while ($i < $len_images) { 
-                $id_image = $images[$i]['id'] ;
-                $path_image = $images[$i]['path'] ;?>
-                <!-- Une colonne d'images -->
-                <div class="vignette">
-                    <img src="<?=$path_image?>" onclick="openModal();currentSlide(<?=$i+1?>)">
-                    <form method="post" action="admin.php" id="delete_image_post_<?=$id_image?>">
-                        <input type="hidden" name="action" value="delete_image">
-                        <input type="hidden" name="id_collection" value="<?=$id_col?>">
-                        <input type="hidden" name="id_image" value="<?=$id_image?>">
-                    </form>
-                    <!-- Bouton de suppression de l'image -->
-                    <button class="del_image_btn" onClick="onDeleteImagePressed(<?=$id_image?>);">X</button>
-                </div>
-                <?php $i += 3 ; 
-            } ?>
+                $i = $colonne ; 
+                while ($i < count($result->images)) { ?>
+                    <!-- Une colonne d'images -->
+                    <div class="vignette">
+                        <img src="<?=$result->images[$i]->path?>"  onclick="openModal();currentSlide(<?=$i+1?>)">
+                        <form method="post" action="admin.php" id="delete_image_post_<?=$result->images[$i]->id?>">
+                            <input type="hidden" name="action" value="delete_image">
+                            <input type="hidden" name="id_collection" value="<?=$result->collection->id?>">
+                            <input type="hidden" name="id_image" value="<?=$result->images[$i]->id?>">
+                        </form>
+                        <!-- Bouton de suppression de l'image -->
+                        <button class="del_image_btn" onClick="onDeleteImagePressed(<?=$result->images[$i]->id?>);">X</button>
+                    </div>
+                    <?php $i += 3 ; 
+                } ?>
             </div>
         <?php } ?>
         

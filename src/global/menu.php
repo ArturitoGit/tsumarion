@@ -1,7 +1,7 @@
 <?php
 
     // Recuperer toutes les collections
-    include('services/Services.php') ;
+    require_once('services/Services.php') ;
     $all_collections = $Services->collectionProvider->getCollections() ;
 
     // La page appelante doit definir le parametre $active,
@@ -33,7 +33,8 @@
         <a href="galerie.php" <?=isActive("galerie",$active)?> class="btn">Galerie</a>
         <div class="liens">
             <?php // Boucle sur toutes les collections
-            foreach ($all_collections as $col) { ?>
+            for ($i = 0 ; $i < count($all_collections) ; $i++) {
+                $col = $all_collections[$i] ; ?>
                 <a href="galerie.php?collection=<?=$col->id?>"><?=$col->nom?></a>
             <?php } ?>
         </div>

@@ -6,5 +6,6 @@
     $pass = 'MYSQL_PASSWORD' ;
     $database = 'tsumarion' ;
 
+    static $bdd ;
     $bdd = new mysqli($host,$user,$pass,$database) ;
 ?>

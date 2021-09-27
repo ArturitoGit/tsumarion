@@ -1,7 +1,7 @@
 <?php
 
-    include('bdd.php') ;
-    include('CollectionProvider.php') ;
+    require_once('bdd.php') ;
+    require_once('CollectionProvider.php') ;
 
     class Services {
 
