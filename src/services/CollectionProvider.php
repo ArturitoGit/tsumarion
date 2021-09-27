@@ -44,7 +44,7 @@
         public function getImages($id_col) ;
 
         // Ajouter une image a la collection
-        public function addImage($id_col,$image) ;
+        public function addImage($image) ;
 
         // Supprimer une image de la collection
         public function delImage($id_image) ;
@@ -52,7 +52,7 @@
     }
 
     // Implementation de l'interface ICollectionProvider pour une base de donnee mysqli
-    class CollectionProvider {
+    class CollectionProvider implements ICollectionProvider {
 
         private $_bdd ;
         public function __construct ($bdd) {

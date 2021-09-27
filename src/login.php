@@ -4,8 +4,9 @@
 
     // Params
     include('global/params.php') ;
-    // BDD
-    include('global/bdd.php') ;
+
+    require_once 'features/Login.php' ;
+    require_once 'services/Services.php' ;
 
     $failed_login = false ;
 
@@ -13,19 +14,16 @@
     if (isset($_POST['pseudo']) AND isset($_POST['pwd'])) {
         $pseudo = $_POST['pseudo'] ;
         $pwd = $_POST['pwd'] ;
-        $salt = "@|-°+==04601doQ" ;
-        $hashe = md5($salt.$pseudo.$salt.$pwd.$salt) ;
-        // Verification dans la base de données
-        $req = $bdd->prepare("SELECT * FROM admin WHERE pseudo=? AND pwd=?") ;
-        $req->bind_param('ss',$pseudo,$pwd) ;
-        $req->execute() ;
-        $response = $req->fetch() ;
-        if ($response) {
-            // Authentification reussie
-            // Ajout de la connexion dans les informations de session
+
+        // Appel a la fonctionnalite de connexion
+        $request = new LoginRequest($pseudo,$pwd) ;
+        $result = (new Loginhandler($Services))->Handle($request) ;
+
+        // Si succes de l'authentification
+        if ($result->success) {
             $_SESSION['connected'] = true ;
+        // Si echec de l'authentification
         } else {
-            // Echec d'authentification
             $failed_login = true ;
         }
     }
