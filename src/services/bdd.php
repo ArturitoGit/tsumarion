@@ -1,7 +1,5 @@
 <?php
 
-    global $bdd ;
-
     // Access to the data base
     $host = 'db' ;
     $user = 'MYSQL_USER' ;

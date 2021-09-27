@@ -1,10 +1,8 @@
 <?php
 
-    // BDD
-    include('bdd.php') ;
-
-    // Recuperation de tous les noms de collections
-    $all_collections = $bdd->query("SELECT * FROM collections") ;
+    // Recuperer toutes les collections
+    include('services/Services.php') ;
+    $all_collections = $Services->collectionProvider->getCollections() ;
 
     // La page appelante doit definir le parametre $active,
     // cette fonction permet de placer l'identifiant active devant la
@@ -35,8 +33,8 @@
         <a href="galerie.php" <?=isActive("galerie",$active)?> class="btn">Galerie</a>
         <div class="liens">
             <?php // Boucle sur toutes les collections
-            while ($col = $all_collections->fetch_assoc()) { ?>
-                <a href="galerie.php?collection=<?=$col['id']?>"><?=$col['nom']?></a>
+            foreach ($all_collections as $col) { ?>
+                <a href="galerie.php?collection=<?=$col->id?>"><?=$col->nom?></a>
             <?php } ?>
         </div>
     </div>

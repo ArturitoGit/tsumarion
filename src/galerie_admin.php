@@ -165,6 +165,7 @@
                         <input type="hidden" name="id_collection" value="<?=$id_col?>">
                         <input type="hidden" name="id_image" value="<?=$id_image?>">
                     </form>
+                    <!-- Bouton de suppression de l'image -->
                     <button class="del_image_btn" onClick="onDeleteImagePressed(<?=$id_image?>);">X</button>
                 </div>
                 <?php $i += 3 ; 
