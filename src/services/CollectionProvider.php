@@ -132,4 +132,39 @@
             return $res ;
         }
     }
+
+    class FakeCollectionProvider implements ICollectionProvider {
+        // Obtenir toutes les collections existantes
+        public function getCollections() {
+            return array (
+                new Collection(1,"Collection 1"),
+                new Collection(2,"Collection 2")
+            );
+        }
+
+        // Ajouter une collection
+        public function addCollection($col) {}
+
+        // Supprimer une collection
+        public function delCollection($id) {}
+
+        // Mettre a jour une collection
+        public function updateCollection($id,$col) {}
+
+        // Obtenir une collection
+        public function getCollection($id) {
+            return (new Collection(2,"Collection 2"));
+        }
+
+        // Obtenir les images d'une collection
+        public function getImages($id_col) {
+            return array() ;
+        }
+
+        // Ajouter une image a la collection
+        public function addImage($image) {}
+
+        // Supprimer une image de la collection
+        public function delImage($id_image) {}
+    }
 ?>

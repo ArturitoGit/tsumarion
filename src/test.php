@@ -1,13 +1,9 @@
 <?php
 
-    include('services/Services.php') ;
+    include('features/SendMail.php') ;
 
-    $collections = $Services->collectionProvider->getCollections() ;
-    echo $collections[0]->nom ;
-    echo "</br>" ;
-    echo $collections[1]->nom ;
-    echo "</br>" ;
-    echo $collections[2]->nom ;
-    echo "</br>" ;
+    $request = new SendMailRequest("expe.diteur@gmail.com","mon message") ;
+    
+    echo (new SendMailHandler())->Handle($request) ? "Mail envoyé !" : "Mail non envoyé ..." ;
 
 ?>

@@ -23,7 +23,7 @@
 <h1 id="titre">Atelier MAGE</h1>
 
 <!-- Le menu du site -->
-<div class="menu">
+<div class="menu" id="menu">
     <a href="https://www.instagram.com/atelier.mage/?hl=fr" id="instagram">
         <img src="Images/InstagramNB.png" alt="instagram" style="width:25px;">
     </a>

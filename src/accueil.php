@@ -24,7 +24,7 @@
 
 <!-- La partie présentation -->
 <div class="container" id="container">   
-    <div class="images">
+    <div class="images" id="images">
         <img src="Images/Desc1.jpg" alt="Image3" id="Images/I3.jpg">
         <img src="Images/Desc2.jpg" alt="Image3" id="Images/I3.jpg">
         <img src="Images/Desc3.jpg" alt="Image3" id="Images/I3.jpg">    

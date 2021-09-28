@@ -74,4 +74,25 @@
 
     }
 
+    class FakeAdminProvider implements IAdminProvider {
+        // Obtenir tous les admins existants
+        public function getAdmins() {
+            return array ( new Admin (0,"arturito","arturito")) ;
+        }
+
+        // Obtenir un admin avec son pseudo
+        public function getAdmin($pseudo) {
+            return new Admin (0,"arturito","arturito") ;
+        }
+
+        // Ajouter un admin
+        public function addAdmin($admin) {}
+
+        // Supprimer un admin
+        public function delAdmin($id) {}
+
+        // Mettre a jour un admin
+        public function updateAdmin($id,$admin) {}
+    }
+
 ?>
