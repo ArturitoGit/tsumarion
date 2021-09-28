@@ -18,17 +18,6 @@ h2 ,
     margin-top : 140px ;
 } 
 
-h1 {
-    position : absolute ;
-    font-size : 27px ;
-    width : 40% ;
-    padding-left : 50px ;
-    margin-top : 25px ;
-    font-family : 'ABeeZee' ;
-    color : rgb(51, 51, 51) ;
-    top : 0 ;
-}
-
 /* The page Title */
 h2 {
     font-size : 35px ;
@@ -73,4 +62,11 @@ h2 {
 .vignette img {
     width : 100% ;
     cursor: pointer;
+}
+
+/* Le menu passe sous le titre si la fenetre est trop etroite */
+@media only screen and (max-width : 1180px) {
+    .container {
+        position : relative ;
+    }
 }

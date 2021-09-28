@@ -42,7 +42,7 @@
     <!-- Le titre de la collection -->
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-9 autres-collections"> 
+        <div class="col-md-9 titre-collection"> 
             <h2><b><?=$result->collection->nom?></b></h2>
         </div>
     </div> 

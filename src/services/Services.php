@@ -25,15 +25,15 @@
     }
 
     class FakeServices {
-              // Les services a proposer a tout le site web
-              public $collectionProvider ;
-              public $adminProvider ;
-      
-              public function __construct () {
-                  // Initialiser les services
-                  $this->collectionProvider = new FakeCollectionProvider() ;
-                  $this->adminProvider = new FakeAdminProvider() ;
-              }  
+        // Les services a proposer a tout le site web
+        public $collectionProvider ;
+        public $adminProvider ;
+
+        public function __construct () {
+            // Initialiser les services
+            $this->collectionProvider = new FakeCollectionProvider() ;
+            $this->adminProvider = new FakeAdminProvider() ;
+        }  
     }
 
     // Définition de la variable
