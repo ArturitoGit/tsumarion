@@ -10,8 +10,7 @@
 
     <!-- Global head -->
     <?php include("global/global_head.html") ?>
-    
-    <link rel="stylesheet" href="global/menu.css">
+    <link rel="stylesheet" href="global/head.css">
     <link rel="stylesheet" href="contact/contact.css">
 
     <title>Contact</title>
@@ -20,7 +19,7 @@
 <body>
 
 <!-- Le menu du site --> 
-<?php $active='contact' ; include('global/menu.php') ?>
+<?php $page='Contact' ; include('global/head.php') ?>
 
 <div class="container">
 

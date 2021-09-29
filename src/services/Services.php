@@ -19,7 +19,6 @@
             $this->bdd = $bdd ;
             // Initialiser les services
             $this->collectionProvider = new CollectionProvider($this->bdd) ;
-            //$this->collectionProvider = new FakeCollectionProvider() ;
             $this->adminProvider = new AdminProvider($this->bdd) ;
         }
     }
@@ -38,6 +37,6 @@
 
     // Définition de la variable
     static $Services ;
-    $Services = new Services() ;
-    //$Services = new FakeServices() ;
+    //$Services = new Services() ;
+    $Services = new FakeServices() ;
 ?>

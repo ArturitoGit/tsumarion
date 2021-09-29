@@ -1,0 +1,55 @@
+#menu {
+    /* Diviser le menu en deux parties horizontales */
+    display : flex ;
+    flex-wrap : wrap ;
+    color : var(--main-color) ;
+}
+h1 {
+    /* Le titre prend 30% de la largeur du menu */
+    flex : 50% ;
+    padding : 30px ;
+    margin : 0 ;
+    font-size : 2.8em ;
+    font-weight : bold ;
+}
+#links {
+    /* Les liens prennent 70% de la largeur du menu */
+    flex : 50% ;
+    padding-right : 40px ;
+    /* Les liens s'affichent horizontalement */
+    display : flex ;
+    /* De la droite vers la gauche */
+    flex-direction : row-reverse ;
+    /* Les liens sont centres sur la hauteur du div */
+    align-items : center ;
+}
+.link {
+    margin-left : 30px ;
+}
+a {
+    text-decoration : none ;
+    color : var(--main-color) ;
+    font-size : 1.8em ;
+}
+a:hover {
+    text-decoration : none ;
+    color : var(--main-hover-color) ;
+}
+#active-link {
+    color : var(--main-active-color) ;
+}
+.sub-link {
+    position : absolute ;
+}
+.sub-link a {
+    position : relative ;
+    display : none ;
+}
+.link:hover a {
+    display : block ;
+}
+
+@media only screen and (max-width : 700px) {
+    h1 { flex : 100% ; text-align : center ;}
+    #links { flex : 100% ; flex-direction : row}
+}

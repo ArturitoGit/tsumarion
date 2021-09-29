@@ -2,6 +2,11 @@ body, html {
     height: 100% ;
     font-family : 'ABeezee' ;
     scroll-behavior: smooth ;
+
+    /* Les couleurs du site */
+    --main-color : rgb(51, 51, 51) ;
+    --main-hover-color : rgb(150, 150, 150) ;
+    --main-active-color : rgb(150, 150, 150) ;
 }
 * {
     box-sizing : border-box ;

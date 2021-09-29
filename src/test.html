@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Title of the document</title>
+    <style>
+        #container {
+            display : flex ;
+            flex-wrap : wrap ;
+        }
+        #div1 {
+            background-color : red ;
+            height : 500px ;
+            display : flex ;
+            justify-content : center ;
+            align-items : center ;
+            flex : 80% ;
+        }
+        #div2 {
+            background-color : blue ;
+        }
+        #div3 {
+            flex : 20% ;
+        }
+    </style>
+  </head>
+  <body>
+  <div id="container">
+    <div id="div3">
+        <h2> Ceci est sensé servir de colonne</h2>
+    </div>
+    <div id="div1">
+        <div id="div2">
+            <h2>Mon titre</h2>
+            <p>Mon paragraphe </br> de plusieurs lignes </p>
+        </div>
+    </div>
+    </div>
+  </body>
+</html>

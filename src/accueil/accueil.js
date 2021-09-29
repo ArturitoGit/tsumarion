@@ -1,6 +1,6 @@
 
 // Override le lien "Accueil"
-document.links["active"].href="#desc" ;
+document.links["active-link"].href="#desc" ;
 
 // Trouver la direction initiale
 var direction_down = document.documentElement.scrollTop == 0 && document.body.scrollTop == 0 ;

@@ -138,7 +138,7 @@
         public function getCollections() {
             return array (
                 new Collection(1,"Collection 1"),
-                new Collection(2,"Collection 2")
+                new Collection(2,"Collection 20")
             );
         }
 

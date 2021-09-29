@@ -11,7 +11,7 @@
     <!-- Global head -->
     <?php include("global/global_head.html") ?>
 
-    <link rel="stylesheet" href="global/menu.css">
+    <link rel="stylesheet" href="global/head.css">
     <link rel="stylesheet" href="accueil/accueil.css">
 
     <title>Accueil</title>
@@ -19,8 +19,11 @@
 </head>
 <body>
 
+<!-- Le fond de la page -->
+<div class="bg" id="bg"></div> 
+
 <!-- Le menu du site --> 
-<?php $active='accueil' ; include('global/menu.php') ?>
+<?php $page='Accueil' ; include('global/head.php') ?>
 
 <!-- La partie présentation -->
 <div class="container" id="container">   

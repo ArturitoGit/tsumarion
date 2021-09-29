@@ -22,8 +22,7 @@
 
     <!-- Global head -->
     <?php include("global/global_head.html") ?>
-
-    <link rel="stylesheet" href="global/menu.css">
+    <link rel="stylesheet" href="global/head.css">
     <link rel="stylesheet" href="galerie/galerie.css">
     <link rel="stylesheet" href="galerie/modal.css">
     <link rel="stylesheet" href="galerie/galerie_admin.css">
@@ -37,7 +36,7 @@
 <body>
 
 <!-- Le menu du site --> 
-<?php $active='galerie' ; include('global/menu.php') ?>
+<?php $page='Galerie' ; include('global/head.php') ?>
 
 <!-- Le contenu de la page -->
 <div class="container">
