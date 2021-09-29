@@ -30,6 +30,7 @@ a {
     text-decoration : none ;
     color : var(--main-color) ;
     font-size : 1.8em ;
+    font-weight : 500 ;
 }
 a:hover {
     text-decoration : none ;
@@ -40,10 +41,22 @@ a:hover {
 }
 .sub-link {
     position : absolute ;
+    padding-top : 10px ;
 }
 .sub-link a {
     position : relative ;
     display : none ;
+    color : #f9f9f9 ;
+    padding : 3px ;
+    padding-right : 15px ;
+    font-size : 1.5em ;
+    background-color : var(--main-color) ;
+    box-shadow:  0px 8px 16px 0px rgba(0,0,0,0.2);
+    opacity : 0.8 ;
+}
+
+.sub-link a:hover {
+    color :rgb(150, 150, 150) ; ;
 }
 .link:hover a {
     display : block ;
