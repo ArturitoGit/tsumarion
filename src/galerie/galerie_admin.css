@@ -21,13 +21,18 @@
     width : 300px ;
 }
 
-.del_image_btn {
+
+/* Placer les boutons de suppression d'image */
+.vignette {
+    position : relative ;
+}
+.vignette .del_image_btn {
     background:none ; 
     border:none ; 
     color:red ; 
     position:absolute ; 
     top:5px ; 
-    right:20px ;
+    right:10px ;
     font-weight : bold ;
     font-size : 20px ;
 }

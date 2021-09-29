@@ -63,12 +63,6 @@
                 <input type="hidden" name="action" value="add_image"/> 
                 <input type="hidden" name="id_collection" value="<?=$result->collection->id?>"/> 
             </form>
-        <!-- Supprimer une image de la collection -->
-            <form action="admin.php" method="POST">
-                <input type="submit" value="Supprimer image" class="btn btn-danger btn-lg">
-                <input type="hidden" name="action" value="delete_image"> 
-                <input type="hidden" name="id_collection" value="<?=$result->collection->id?>"> 
-            </form>
         </div>
         <div class="col-md-4">
         <!-- Ajouter une nouvelle collection -->
