@@ -34,4 +34,6 @@ p {
 #form_contact button {
     font-size : 15px ;
     padding : 10px ;
+    padding-top : 5px ;
+    padding-bottom : 5px ; 
 }

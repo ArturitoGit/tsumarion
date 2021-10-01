@@ -37,7 +37,7 @@
             <label for="message_input">Votre message</label>
             <textarea name="message" class="form-control" placeholder="Mon message" id="message_input" rows="7"></textarea>
         </div>
-        <button type="submit" class="btn btn-info">Envoyer</button>
+        <button type="submit" class="btn btn-success">Envoyer</button>
     </form>
 
 </div>

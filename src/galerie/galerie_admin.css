@@ -10,6 +10,13 @@
     display : flex ;
     justify-content : center ;
 }
+
+#menu-admin .btn {
+    /* Reduire la taille des boutons */
+    padding : 10px ;
+    padding-top : 5px ;
+    padding-bottom : 5px ;
+}
 #form_change_name {
     /* Largeur de la partie dediee au changement de nom de la collection */
     flex : 40% ;
