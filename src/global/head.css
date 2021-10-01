@@ -1,16 +1,27 @@
 #menu {
+    position : fixed ;
+    top : 0 ;
+    width : 100% ;
+    background : white ;
+    box-shadow: 5px 5px 5px 5px white;
+    /* Placer le menu au dessus des autres pages */
+    z-index : 1 ;
     /* Diviser le menu en deux parties horizontales */
     display : flex ;
     flex-wrap : wrap ;
     color : var(--main-color) ;
 }
 h1 {
+    --main-title-size : 2.8em ;
+    --main-title-small-size : 2em ;
     /* Le titre prend 30% de la largeur du menu */
     flex : 50% ;
     padding : 30px ;
+    padding-bottom : 0 ;
     margin : 0 ;
-    font-size : 2.8em ;
+    font-size : var(--main-title-size) ;
     font-weight : bold ;
+    transition : font-size 0.5s ;
 }
 #links {
     /* Les liens prennent 70% de la largeur du menu */

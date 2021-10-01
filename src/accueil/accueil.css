@@ -13,6 +13,13 @@ body {overflow: hidden ;}
     background-size: cover;
 }
 
+/* Supprimer les options du menu fixe */
+#menu {
+    position : relative ;
+    background : none ;
+    box-shadow : none ;
+}
+
 h1 {
     font-size : 8rem ;
     margin-top : 50px ;
