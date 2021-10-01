@@ -33,14 +33,35 @@ h3 {
     font-size : 2em;
 }
 .vignette img {
+    /* Taille des images */
     width : 22vw ;
     height : 22vw ;
 }
 .vignette {
+    /* Position des images  */
     display : inline-block ;
     margin : 1% ;
 }
 
 #active-collection {
     color : var(--main-active-color) ;
+}
+
+@media only screen and (max-width : 700px) {
+    #autres-collections {
+        position : relative ;
+        width : 100% ;
+        margin-bottom : 30px ;
+        margin-top : 30px ;
+        padding : 0 ;
+        align-items : center ;
+    }
+    #current-collection {
+        width : 100% ;
+        margin : 0 ;
+    }
+    .vignette img {
+        width : 40vw ;
+        height : 40vw ;
+    }
 }

@@ -1,27 +1,24 @@
+/* Placer les elements du menu admin horizontalement */
 #menu-admin {
     margin : 1% ;
     display : flex ;
     flex-wrap : wrap ;
 }
 #menu-admin form{
+    /* Chaque element est positione au milieu de l'espace qui lui est attribue */
     flex : 20% ;
     display : flex ;
     justify-content : center ;
 }
 #form_change_name {
+    /* Largeur de la partie dediee au changement de nom de la collection */
     flex : 40% ;
-    display : flex ;
-    align-items : center ;
+    align-items : center ; /* Aligner les elements sur l'axe horizontal du menu admin */
 }
-#form_change_name button {
-    flex : 20% ;
-}
-#form_change_name .form-group {
-    flex : 80% ;
-}
-#input_titre {
-    width : 100% ;
-}
+/* Repartition de la largeur pour le formulaire de changement de nom de collection */
+#form_change_name button { flex : 20% ;}
+#form_change_name .form-group { flex : 80% ;}
+#input_titre { width : 100% ; }
 
 
 /* Placer les boutons de suppression d'image */
