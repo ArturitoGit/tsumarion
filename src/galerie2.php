@@ -1,3 +1,21 @@
+<?php
+    // Authentification
+    include("global/params.php") ;
+    authentificate(1) ;
+
+    // Recuperer les parametres de la requete GET
+    $id_col = null ;
+    if (isset($_GET['collection'])) {
+        $id_col = intval($_GET['collection']) ;
+    }
+
+    // Appel de la fonctionnalite InitGallery
+    require_once "services/Services.php" ;
+    require_once "features/InitGallery.php" ;
+    $request = new InitGalleryRequest($id_col) ;
+    $result = (new InitGalleryHandler($Services))->Handle($request) ;
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,12 +62,11 @@
             font-size : 2em;
         }
         #images {
-            display : flex ;
-            flex-wrap : wrap ;
-            justify-content : center ;
         }
         #images img {
-            height : 30vh ;
+            width : 22vw ;
+            height : 22vw ;
+            display : inline-block ;
             margin : 1% ;
         }
     </style>
@@ -64,28 +81,38 @@
     <!-- La colonne des autres collections -->
     <div id="autres-collections">
         <h3>Autres collections</h3>
-        <a href="#">Collection 1</a>
-        <a href="#">Collection 2</a>
-        <a href="#">Collection 3</a>
+        <?php for ($i = 0 ; $i < count($result->all_collections) ; $i ++) { ?>
+            <a href="galerie.php?collection=<?=$result->all_collections[$i]->id?>"><?=$result->all_collections[$i]->nom?></a>
+        <?php } ?>
     </div>
 
     <div id="current-collection">
-        <h3>Ma collection courante</h3>
-
+        <!-- Le titre de la collection courante -->
+        <h3><?=$result->collection->nom?></h3>
+        <!-- Les images de la collection -->
         <div id="images">
-            <img src="Images\galerie\241485835_395954265447282_4398308958275222798_n.jpg">
-            <img src="Images\galerie\241710889_568840714542039_9184749956607281013_n.jpg">
-            <img src="Images\galerie\243132140_266504192002256_5917364163844464431_n.jpg">
-            <img src="Images\galerie\243146154_407903944102636_3473920275527446541_n.jpg">
-            <img src="Images\galerie\243149495_725717958828997_7310980197921468928_n.jpg">
-            <img src="Images\galerie\243149994_578357003489661_1483602042068091331_n.jpg">
-            <img src="Images\galerie\243151327_554075732582484_3396593264218028023_n.jpg">
-            <img src="Images/galerie/Bison.jpg">
-            <img src="Images/galerie/cameraman.jpg">
-            <img src="Images/galerie/Bison.jpg">
-            <img src="Images/galerie/Bison.jpg">
-            <img src="Images/galerie/Bison.jpg">
+            <?php for ($i=0 ; $i < count($result->images) ; $i++) {?>
+                <img src="<?=$result->images[$i]->path?>">
+            <?php } ?>
         </div>
+    </div>
+</div>
+
+<!-- Les images MODAL -->
+<div class="modal" id="modal">
+
+    <!-- Le bouton pour fermer la page -->
+    <span class="close cursor" onclick="closeModal()">&times;</span>
+
+    <div class="modal-content">
+        <!-- Les images elles-meme -->
+        <?php for ($i = 0 ; $i < count($result->images) ; $i++) { ?>
+            <div class="mySlides"><img src="<?=$result->images[$i]->path?>"></div>
+        <?php } ?>
+
+        <!-- Next/previous controls -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
 </div>
 

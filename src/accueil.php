@@ -26,14 +26,14 @@
 <?php $page='Accueil' ; include('global/head.php') ?>
 
 <!-- La partie présentation -->
-<div class="container" id="container">   
-    <div class="images" id="images">
+<div id="page">   
+    <div id="images">
         <img src="Images/Desc1.jpg" alt="Image3" id="Images/I3.jpg">
         <img src="Images/Desc2.jpg" alt="Image3" id="Images/I3.jpg">
         <img src="Images/Desc3.jpg" alt="Image3" id="Images/I3.jpg">    
     </div>
     
-    <div class="description" id="desc">
+    <div id="description">
         <h3>Objets outils, pour le quotidien de tous.</h3>
         <p>
         Je m’appelle Marion Grange, et je suis apprentie céramiste. 

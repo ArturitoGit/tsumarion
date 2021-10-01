@@ -58,7 +58,7 @@ a:hover {
     position : relative ;
     display : none ;
     color : #f9f9f9 ;
-    padding : 3px ;
+    padding : 5px ;
     padding-right : 15px ;
     font-size : 1.5em ;
     background-color : var(--main-color) ;
