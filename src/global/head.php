@@ -29,7 +29,7 @@
 
 <div id="menu">
     <!-- Le titre du site web -->
-    <h1 id="titre-site">Atelier Mage</h1>
+    <h1 id="titre-site">Atelier iMage</h1>
 
     <!-- Les liens vers les autres pages -->
     <div id="links">
