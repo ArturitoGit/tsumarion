@@ -35,50 +35,29 @@
 <!-- Le menu du site --> 
 <?php $page='Galerie' ; include('global/head.php') ?>
 
-<!-- Le contenu de la page -->
-<div class="container">
-
-    <!-- Le titre de la collection -->
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-9 titre-collection"> 
-            <h2><b><?=$result->collection->nom?></b></h2>
-        </div>
-    </div> 
-
-    <!-- Les images -->
-    <div class="row">
-
-        <!-- La colonne des liens vers les autres collections -->
-        <div class="col-md-3 autres-collections"> 
-            <ul>
-                <?php // Boucle sur toutes les collections
-                for ($i = 0 ; $i < count($result->all_collections) ; $i++) {
-                    $i_collection = $result->all_collections[$i] ;
-                    // Permet d'ajouter l'id "active" sur le lien de la collection courante
-                    $id_active = ($i_collection->id == $result->collection->id) ? "id='active'" : "" ;?>
-                    <li>
-                        <a href="galerie.php?collection=<?=$i_collection->id?>"<?=$id_active?>><?=$i_collection->nom?></a>
-                    </li>
-                <?php } ?>
-            </ul>
-        </div>
-
-        <!-- Les 3 colonnes d'images -->
-        <?php // Boucle sur les 3 colonnes 
-        for ($colonne = 0 ; $colonne < 3 ; $colonne ++) { ?>
-            <div class="col-md-3">
-            <?php // Dans une colonne on affiche une image sur 3 en partant d'un offset $colonne
-                $i = $colonne ; 
-                while ($i < count($result->images)) { ?>
-                    <!-- Une colonne d'images -->
-                    <div class="vignette">
-                        <img src="<?=$result->images[$i]->path?>"  onclick="openModal();currentSlide(<?=$i+1?>)">
-                    </div>
-                    <?php $i += 3 ; 
-                } ?>
-            </div>
+<div id="galerie-page">
+    <!-- La colonne des autres collections -->
+    <div id="autres-collections">
+        <h3>Autres collections</h3>
+        <?php for ($i = 0 ; $i < count($result->all_collections) ; $i ++) { 
+                    $collection = $result->all_collections[$i] ;
+                    $activeId = $collection->id == $result->collection->id ? 'id="active-collection"':'' ?>
+            <a href="galerie.php?collection=<?=$collection->id?>" <?=$activeId?>><?=$collection->nom?></a>
         <?php } ?>
+    </div>
+
+    <div id="current-collection">
+        <!-- Le titre de la collection courante -->
+        <h3><?=$result->collection->nom?></h3>
+        <!-- Les images de la collection -->
+        <div id="images">
+            <?php for ($i=0 ; $i < count($result->images) ; $i++) {?>
+                <div class="vignette">
+                    <img src="<?=$result->images[$i]->path?>" onclick="openModal();currentSlide(<?=$i+1?>)">
+                </div>
+            <?php } ?>
+        </div>
+    </div>
 </div>
 
 <!-- Les images MODAL -->

@@ -1,71 +1,46 @@
-/* The Text Color */
-h2 , 
-.autres-collections a {
-    color : rgb(51, 51, 51) ;
+#galerie-page {
+    /* Placer la colonne des autres collections a gauche des images */ 
+    margin-top : 8% ;
+    /* Les proportions de la page en largeur */
+    --left-column-width : 20% ;
+    --right-page-width : 80% ;
 }
-/* The selected Text Color */
-.autres-collections a:hover, 
-#active-collection {
-    /**/
-    color : rgb(150, 150, 150) ;
+#autres-collections {
+    width : var(--left-column-width) ;
+    position : fixed ;
+    /* Aligner le bloc des autres collections verticalement */
+    display : flex ;
+    flex-direction : column ;
+    margin-top : 20vh ;
+    /* Distance avec le bord gauche de la fenetre */
+    padding-left : 3% ;
 }
-
-/* The page */
-.container {
-    width : 98% ;
-    left : 0 ;
-    margin-top : 50px ;
-} 
-
-/* The page Title */
-h2 {
-    font-size : 35px ;
-    letter-spacing: 1px ;
+#current-collection {
+    /* Laisser de l'espace pour la colonne de gauche */
+    width : var(--right-page-width) ;
+    margin-left : var(--left-column-width) ;
+    /* Marge entre la colonne et la collection courante */
+    padding-left : 5% ;
 }
-
-/* The horizontal distance between images */
-.col-md-3 {
-    padding-left : 12px ;
-    padding-right : 12px ;
+#autres-collections a {
+    font-size : 1.5em ;
 }
-
-/* The images */
- .vignette {
-     border-radius : 0px ;
-     margin-bottom : 25px ;
-     /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
- }
-
- /* The other-collections links */
-.autres-collections {
-    padding : 0 ;
-    padding-bottom : 50px ;
+h3 {
+    font-weight : bold ;
+    margin-bottom : 3% ;
 }
-.autres-collections ul , .autres-collections h3 {
-    width : 100% ;
-    padding : 0 ;
+#current-collection h3 {
+    font-size : 2em;
 }
-.autres-collections ul {
-   margin-left : 15% ;
-}
-.autres-collections li {
-   padding-bottom : 10px ;
-}
-.autres-collections a {
-   font-size : 17px ;
-}
-.autres-collections a:hover {
-   text-decoration: none ;
-}
-
 .vignette img {
-    width : 100% ;
-    cursor: pointer;
+    width : 22vw ;
+    height : 22vw ;
+}
+.vignette {
+    display : inline-block ;
+    margin : 1% ;
 }
 
-/* Le menu passe sous le titre si la fenetre est trop etroite */
-@media only screen and (max-width : 1180px) {
-    .container {
-        position : relative ;
-    }
+#active-collection {
+    color : var(--main-active-color) ;
 }

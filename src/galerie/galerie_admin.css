@@ -1,24 +1,26 @@
-#control_row {
-    margin-bottom : 40px ;
+#menu-admin {
+    margin : 1% ;
+    display : flex ;
+    flex-wrap : wrap ;
 }
-
-.btn {
-    font-size : 15px ;
-    padding : 7px ;
-    padding-right : 10px ;
-    margin-right : 5px ;
+#menu-admin form{
+    flex : 20% ;
+    display : flex ;
+    justify-content : center ;
 }
-
-#control_row form{
-    display : inline-block ;
+#form_change_name {
+    flex : 40% ;
+    display : flex ;
+    align-items : center ;
 }
-
-#control_row .col-md-4 {
-    padding-left : 5% ;
+#form_change_name button {
+    flex : 20% ;
 }
-
+#form_change_name .form-group {
+    flex : 80% ;
+}
 #input_titre {
-    width : 300px ;
+    width : 100% ;
 }
 
 
