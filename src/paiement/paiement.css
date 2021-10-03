@@ -1,0 +1,36 @@
+html {
+    /* Espace en bas de la page */
+    margin-bottom : 300px ;
+}
+
+/* Titre principal de la page */
+h2 {
+    width : 100% ;
+    font-weight : bold ;
+    text-align : center ;
+    margin-top : 1em ;
+    margin-bottom : 3em ;
+    font-size : 2.5em ;
+}
+
+/* Sous-titres : Panier et informations bancaires */
+h3 {
+    width : 100% ;
+    text-align : center ;
+    font-size : 2em ;
+    margin-bottom : 30px ;
+}
+
+#panier {
+    /* Réduire et centrer le panier */
+    max-width : 600px ;
+    margin : auto ;
+    /* Espace sous le panier */
+    margin-bottom : 100px ;
+}
+
+form {
+    /* Réduire et centrer le formulaire */
+    max-width : 400px ;
+    margin : auto ;
+}
