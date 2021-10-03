@@ -14,22 +14,9 @@
 </head>
 <body>
 
-<script>
-    window.onscroll = function() {scrollFunction()};
-    // Changer la taille de l'entete on scroll
-    function scrollFunction() {
-        return ; // On annule la fonction
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            document.getElementById("titre-site").style.fontSize = "var(--main-title-small-size)";
-        } else {
-            document.getElementById("titre-site").style.fontSize = "var(--main-title-size)";
-        }
-    }
-</script>
-
 <div id="menu">
     <!-- Le titre du site web -->
-    <h1 id="titre-site">Atelier iMage</h1>
+    <h1 id="titre-site">Atelier Mage</h1>
 
     <!-- Les liens vers les autres pages -->
     <div id="links">
