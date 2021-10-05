@@ -57,7 +57,7 @@
             }
 
             // Recuperer les images de la collection
-            $images = $this->_services->collectionProvider->getImages($collection->id) ;
+            $images = $this->_services->collectionProvider->getImagesOfCol($collection->id) ;
 
             return new InitGalleryResult(true,$all_collections,$collection,$images) ;
         }

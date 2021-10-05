@@ -41,7 +41,7 @@
         public function getCollection($id) ;
 
         // Obtenir les images d'une collection
-        public function getImages($id_col) ;
+        public function getImagesOfCol($id_col) ;
 
         // Ajouter une image a la collection
         public function addImage($image) ;
@@ -49,10 +49,16 @@
         // Supprimer une image de la collection
         public function delImage($id_image) ;
 
+        // Obtenir toutes les images enregistrees
+        public function getImages() ;
+
     }
 
     // Implementation de l'interface ICollectionProvider pour une base de donnee mysqli
     class CollectionProvider implements ICollectionProvider {
+
+        // Le chemin du dossier qui contient les images des collections
+        public const IMAGES_FOLDER = 'Images/galerie/' ;
 
         private $_bdd ;
         public function __construct ($bdd) {
@@ -95,7 +101,7 @@
             return $result->fetch_object() ;
         }
 
-        public function getImages($id_col) {
+        public function getImagesOfCol($id_col) {
             $sql = "SELECT * FROM images WHERE collection=? ORDER BY id DESC" ;
             $req = $this->_bdd->prepare($sql) ;
             $req->bind_param('i',$id_col) ;
@@ -116,6 +122,12 @@
             $req = $this->_bdd->prepare($sql) ;
             $req->bind_param('i',$id_image) ;
             $req->execute() ;  
+        }
+
+        public function getImages () {
+            $sql = "SELECT * FROM images ORDER BY id DESC" ;
+            $result = $this->_bdd->query($sql) ;
+            return $this->resultToArray($result) ;
         }
 
         // Transformer un resultat de requete MYSQLI en tableau d'objets
@@ -157,7 +169,7 @@
         }
 
         // Obtenir les images d'une collection
-        public function getImages($id_col) {
+        public function getImagesOfCol($id_col) {
             return array() ;
         }
 
@@ -166,5 +178,7 @@
 
         // Supprimer une image de la collection
         public function delImage($id_image) {}
+
+        public function getImages() {}
     }
 ?>

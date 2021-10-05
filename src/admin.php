@@ -8,6 +8,7 @@
     require_once 'services/Services.php' ;
     require_once 'features/RegisterCollection.php' ;
     require_once 'features/RegisterImage.php' ;
+    require_once 'features/DeleteImage.php' ;   
 
     /* Recuperation du parametre action */
     $action = NULL ;
@@ -25,7 +26,9 @@
 
     /* Requete de suppression d'une image */
     elseif ($action == 'delete_image' AND isset($_POST['id_image']) AND isset($_POST['id_collection'])) {
-        $Services->collectionProvider->delImage(intval($_POST['id_image'])) ;
+        // $Services->collectionProvider->delImage(intval($_POST['id_image'])) ;
+        $request = new DeleteImageRequest(intval($_POST['id_image'])) ;
+        (new DeleteImageHandler ($Services))->Handle($request) ;
         // Redirection vers la page admin de cette collection
         header ('Location: galerie_admin.php?collection='.$_POST['id_collection']) ;
         exit() ;

@@ -1,9 +1,10 @@
 <?php
 
-    include('features/SendMail.php') ;
+    include('services/Services.php') ;
+    include('features/DeleteImage.php') ;
 
-    $request = new SendMailRequest("expe.diteur@gmail.com","mon message") ;
+    // Tester la nouvelle feature DeleteImage.php qui permet de supprimer les images 
+    // des fichiers du systeme lorsqu'elles sont supprimees de toutes les collections
     
-    echo (new SendMailHandler())->Handle($request) ? "Mail envoyé !" : "Mail non envoyé ..." ;
 
 ?>

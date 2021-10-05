@@ -35,8 +35,8 @@
         }  
     }
 
-    // Définition de la variable
+    // Définition de la variable statique des services
     static $Services ;
-    //$Services = new Services() ;
-    $Services = new FakeServices() ;
+    $Services = new Services() ;
+    //$Services = new FakeServices() ;
 ?>
